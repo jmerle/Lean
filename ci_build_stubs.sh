@@ -43,7 +43,7 @@ function generate_stubs {
 
     # TODO: Change to STUBS_VERSION="$TRAVIS_TAG" when done debugging
     NO_DEBUG="true" \
-    STUBS_VERSION="$TRAVIS_BUILD_NUMBER"
+    STUBS_VERSION="$TRAVIS_BUILD_NUMBER" \
     dotnet run $LEAN_DIR $RUNTIME_DIR $STUBS_DIR
 
     if [ $? -ne 0 ]; then
