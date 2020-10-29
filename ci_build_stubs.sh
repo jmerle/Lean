@@ -27,6 +27,17 @@ function ensure_repo_up_to_date {
     git pull origin $2
 }
 
+function install_dotnet {
+    wget https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    rm packages-microsoft-prod.deb
+
+    sudo apt update
+    sudo apt install -y apt-transport-https
+    sudo apt update
+    sudo apt install -y dotnet-sdk-3.1
+}
+
 function install_twine {
     pip install -U twine
 }
@@ -72,6 +83,7 @@ function publish_stubs {
 
 if [[ " ${CLI_ARGS[@]} " =~ " -h " ]]; then
     echo "STUBS GENERATOR (Debian distros only)"
+    echo "  -d: Install .NET Core"
     echo "  -t: Install Twine"
     echo "  -g: Generate new stubs"
     echo "  -p: Push new stubs to PyPi"
@@ -82,6 +94,10 @@ fi
 # if [[ "$TRAVIS_TAG" != "" ]]; then
 #     exit 0
 # fi
+
+if [[ " ${CLI_ARGS[@]} " =~ " -d " ]]; then
+    install_dotnet
+fi
 
 if [[ " ${CLI_ARGS[@]} " =~ " -t " ]]; then
     install_twine
