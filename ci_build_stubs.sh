@@ -52,9 +52,8 @@ function generate_stubs {
 
     cd "$GENERATOR_DIR/QuantConnectStubsGenerator"
 
-    # TODO: Change to STUBS_VERSION="$TRAVIS_TAG" when done debugging
     NO_DEBUG="true" \
-    STUBS_VERSION="$TRAVIS_BUILD_NUMBER" \
+    STUBS_VERSION="$TRAVIS_TAG" \
     dotnet run $LEAN_DIR $RUNTIME_DIR $STUBS_DIR
 
     if [ $? -ne 0 ]; then
@@ -90,10 +89,9 @@ if [[ " ${CLI_ARGS[@]} " =~ " -h " ]]; then
     exit 0
 fi
 
-# TODO: Enable this when done debugging
-# if [[ "$TRAVIS_TAG" != "" ]]; then
-#     exit 0
-# fi
+if [[ "$TRAVIS_TAG" != "" ]]; then
+    exit 0
+fi
 
 if [[ " ${CLI_ARGS[@]} " =~ " -d " ]]; then
     install_dotnet
