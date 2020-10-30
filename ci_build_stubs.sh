@@ -85,7 +85,7 @@ if [[ " ${CLI_ARGS[@]} " =~ " -h " ]]; then
     echo "  -d: Install .NET Core"
     echo "  -t: Install Twine"
     echo "  -g: Generate new stubs"
-    echo "  -p: Push new stubs to PyPi"
+    echo "  -p: Publish new stubs to PyPi"
     exit 0
 fi
 
