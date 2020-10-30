@@ -32,10 +32,10 @@ function install_dotnet {
     sudo dpkg -i packages-microsoft-prod.deb
     rm packages-microsoft-prod.deb
 
-    sudo apt update
-    sudo apt install -y apt-transport-https
-    sudo apt update
-    sudo apt install -y dotnet-sdk-3.1
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https
+    sudo apt-get update
+    sudo apt-get install -y dotnet-sdk-3.1
 }
 
 function install_twine {
