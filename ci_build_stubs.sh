@@ -89,7 +89,7 @@ if [[ " ${CLI_ARGS[@]} " =~ " -h " ]]; then
     exit 0
 fi
 
-if [[ "$TRAVIS_TAG" != "" ]]; then
+if [[ "$TRAVIS_TAG" == "" ]]; then
     exit 0
 fi
 
