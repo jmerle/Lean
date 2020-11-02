@@ -15,6 +15,7 @@ RUNTIME_DIR="$LEAN_BIN_DIR/dotnet-runtime"
 STUBS_DIR="$LEAN_BIN_DIR/generated-stubs"
 
 # Change to "testpypi" to upload to https://test.pypi.org/
+# If you do this, know that PyPI and TestPyPI require different API tokens
 PYPI_REPO="testpypi"
 
 function ensure_repo_up_to_date {
@@ -72,10 +73,10 @@ function publish_stubs {
     TWINE_USERNAME="__token__" \
     TWINE_PASSWORD="$PYPI_API_TOKEN" \
     TWINE_REPOSITORY="$PYPI_REPO" \
-    twine upload "$STUBS_DIR/dist/*"
+    twine upload "$STUBS_DIR/dist/*" &>/dev/null
 
     if [ $? -ne 0 ]; then
-        echo "PyPi publishing failed"
+        echo "PyPI publishing failed"
         exit 1
     fi
 }
@@ -85,7 +86,7 @@ if [[ " ${CLI_ARGS[@]} " =~ " -h " ]]; then
     echo "  -d: Install .NET Core"
     echo "  -t: Install Twine"
     echo "  -g: Generate new stubs"
-    echo "  -p: Publish new stubs to PyPi"
+    echo "  -p: Publish new stubs to PyPI"
     exit 0
 fi
 
