@@ -148,7 +148,7 @@
     <ProjectReference Include="..\Configuration\QuantConnect.Configuration.csproj" />
     <ProjectReference Include="..\Logging\QuantConnect.Logging.csproj" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(CI)' == ''">
     <None Include="Python\Python.Runtime.dll.config" Link="Python.Runtime.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
