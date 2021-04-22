@@ -4,7 +4,7 @@
 #
 
 # Use base system
-FROM jmerle/lean:foundation-dotnet-5
+FROM quantconnect/lean:foundation
 
 MAINTAINER QuantConnect <contact@quantconnect.com>
 
