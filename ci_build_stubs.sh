@@ -14,8 +14,6 @@ GENERATOR_DIR="$LEAN_BIN_DIR/quantconnect-stubs-generator"
 RUNTIME_DIR="$LEAN_BIN_DIR/dotnet-runtime"
 STUBS_DIR="$LEAN_BIN_DIR/generated-stubs"
 
-mkdir -p "$LEAN_BIN_DIR"
-
 # Change to "testpypi" to upload to https://test.pypi.org/
 # If you do this, know that PyPI and TestPyPI require different API tokens
 PYPI_REPO="testpypi"
