@@ -9,8 +9,7 @@ RUNTIME_REPO="https://github.com/dotnet/runtime"
 RUNTIME_BRANCH="main"
 
 LEAN_DIR="$(pwd)"
-# LEAN_BIN_DIR="$LEAN_DIR/Launcher/bin/Release"
-LEAN_BIN_DIR="$LEAN_DIR/Launcher/bin/Debug"
+LEAN_BIN_DIR="$LEAN_DIR/Launcher/bin/Release"
 GENERATOR_DIR="$LEAN_BIN_DIR/quantconnect-stubs-generator"
 RUNTIME_DIR="$LEAN_BIN_DIR/dotnet-runtime"
 STUBS_DIR="$LEAN_BIN_DIR/generated-stubs"
@@ -19,7 +18,6 @@ mkdir -p "$LEAN_BIN_DIR"
 
 # Change to "testpypi" to upload to https://test.pypi.org/
 # If you do this, know that PyPI and TestPyPI require different API tokens
-# PYPI_REPO="pypi"
 PYPI_REPO="testpypi"
 
 function ensure_repo_up_to_date {
@@ -33,8 +31,7 @@ function ensure_repo_up_to_date {
 }
 
 function install_twine {
-    # pip install -U twine -q
-    pip install -U twine
+    pip install -U twine -q
 }
 
 function generate_stubs {
@@ -48,8 +45,7 @@ function generate_stubs {
     cd "$GENERATOR_DIR/QuantConnectStubsGenerator"
 
     STUBS_VERSION="${GITHUB_REF#refs/tags/}" \
-    dotnet run $LEAN_DIR $RUNTIME_DIR $STUBS_DIR
-    # dotnet run -v q $LEAN_DIR $RUNTIME_DIR $STUBS_DIR
+    dotnet run -v q $LEAN_DIR $RUNTIME_DIR $STUBS_DIR
 
     if [ $? -ne 0 ]; then
         echo "Generation of stubs failed"
@@ -62,14 +58,12 @@ function publish_stubs {
     # This API token should be valid for the current $PYPI_REPO and should include the "pypi-" prefix
 
     cd $STUBS_DIR
-    python setup.py sdist bdist_wheel
-    # python setup.py --quiet sdist bdist_wheel
+    python setup.py --quiet sdist bdist_wheel
 
     TWINE_USERNAME="__token__" \
     TWINE_PASSWORD="$PYPI_API_TOKEN" \
     TWINE_REPOSITORY="$PYPI_REPO" \
-    twine upload "$STUBS_DIR/dist/*"
-    # twine upload "$STUBS_DIR/dist/*" > /dev/null
+    twine upload "$STUBS_DIR/dist/*" > /dev/null
 
     if [ $? -ne 0 ]; then
         echo "PyPI publishing failed"
