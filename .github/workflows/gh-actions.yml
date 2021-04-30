@@ -29,15 +29,15 @@ jobs:
         with:
           dotnet-version: 5.0.202
 
-      - name: Restore nuget dependencies
-        run: |
-          nuget restore QuantConnect.Lean.sln -v quiet
-          nuget install NUnit.Runners -Version 3.11.1 -OutputDirectory testrunner
+      # - name: Restore nuget dependencies
+      #   run: |
+      #     nuget restore QuantConnect.Lean.sln -v quiet
+      #     nuget install NUnit.Runners -Version 3.11.1 -OutputDirectory testrunner
 
-      - name: Build
-        run: msbuild /p:Configuration=Debug /p:VbcToolExe=vbnc.exe /v:quiet /p:WarningLevel=1 QuantConnect.Lean.sln
-        env:
-          PYTHONNET_PYDLL: ${{ env.PYTHONNET_PYDLL }}
+      # - name: Build
+      #   run: msbuild /p:Configuration=Debug /p:VbcToolExe=vbnc.exe /v:quiet /p:WarningLevel=1 QuantConnect.Lean.sln
+      #   env:
+      #     PYTHONNET_PYDLL: ${{ env.PYTHONNET_PYDLL }}
 
       # - name: Run Tests
       #   run: mono ./testrunner/NUnit.ConsoleRunner.3.11.1/tools/nunit3-console.exe ./Tests/bin/Release/QuantConnect.Tests.dll --where "cat != TravisExclude" --labels=Off --params:log-handler=ConsoleErrorLogHandler
