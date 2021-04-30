@@ -8,11 +8,30 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
-    container:
-        image: quantconnect/lean:foundation
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install Python
+        run: |
+          echo "PATH=$HOME/miniconda3/bin:$PATH" >> $GITHUB_ENV
+          echo "PYTHONNET_PYDLL=$HOME/miniconda3/lib/libpython3.6m.so" >> $GITHUB_ENV
+          wget -q https://cdn.quantconnect.com/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh
+          bash Miniconda3-4.5.12-Linux-x86_64.sh -b
+          rm -rf Miniconda3-4.5.12-Linux-x86_64.sh
+          ln -s $HOME/miniconda3/lib/libpython3.6m.so /usr/lib/libpython3.6m.so
+          conda update -y python conda pip
+          conda install -y python=3.6.8
+          conda install -y numpy=1.18.1
+          conda install -y pandas=0.25.3
+          conda install -y cython=0.29.15
+          conda install -y scipy=1.4.1
+          conda install -y wrapt=1.12.1
+
+      - name: Set up .NET 5
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.202
 
       - name: Restore nuget dependencies
         run: |
@@ -21,9 +40,11 @@ jobs:
 
       - name: Build
         run: msbuild /p:Configuration=Release /p:VbcToolExe=vbnc.exe /v:quiet /p:WarningLevel=1 QuantConnect.Lean.sln
+        env:
+          PYTHONNET_PYDLL: ${{ env.PYTHONNET_PYDLL }}
 
-      - name: Run Tests
-        run: mono ./testrunner/NUnit.ConsoleRunner.3.11.1/tools/nunit3-console.exe ./Tests/bin/Release/QuantConnect.Tests.dll --where "cat != TravisExclude" --labels=Off --params:log-handler=ConsoleErrorLogHandler
+      # - name: Run Tests
+      #   run: mono ./testrunner/NUnit.ConsoleRunner.3.11.1/tools/nunit3-console.exe ./Tests/bin/Release/QuantConnect.Tests.dll --where "cat != TravisExclude" --labels=Off --params:log-handler=ConsoleErrorLogHandler
 
       - name: Generate & Publish python stubs
         if: startsWith(github.ref, 'refs/tags/')
