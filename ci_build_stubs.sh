@@ -86,17 +86,23 @@ fi
 echo "GITHUB_REF: ${GITHUB_REF}"
 
 if [[ ! "$GITHUB_REF" =~ "refs/tags/*" ]]; then
+    echo "Exiting, no tag set"
     exit 0
 fi
 
 if [[ " ${CLI_ARGS[@]} " =~ " -t " ]]; then
+    echo "Installing Twine"
     install_twine
 fi
 
 if [[ " ${CLI_ARGS[@]} " =~ " -g " ]]; then
+    echo "Generating new stubs"
     generate_stubs
 fi
 
 if [[ " ${CLI_ARGS[@]} " =~ " -p " ]]; then
+    echo "Publishing new stubs"
     publish_stubs
 fi
+
+echo "Done"
