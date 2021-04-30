@@ -21,12 +21,7 @@ jobs:
           rm -rf Miniconda3-4.5.12-Linux-x86_64.sh
           sudo ln -s $HOME/miniconda3/lib/libpython3.6m.so /usr/lib/libpython3.6m.so
           conda update -y python conda pip
-          conda install -y python=3.6.8
-          conda install -y numpy=1.18.1
-          conda install -y pandas=0.25.3
-          conda install -y cython=0.29.15
-          conda install -y scipy=1.4.1
-          conda install -y wrapt=1.12.1
+          conda install -y python=3.6.8 numpy=1.18.1 pandas=0.25.3 cython=0.29.15 scipy=1.4.1 wrapt=1.12.1
 
       - name: Set up .NET 5
         uses: actions/setup-dotnet@v1
@@ -51,3 +46,5 @@ jobs:
         run: |
           chmod +x ci_build_stubs.sh
           ./ci_build_stubs.sh -t -g -p
+        env:
+          PYPI_API_TOKEN: ${{ env.PYPI_API_TOKEN }}
