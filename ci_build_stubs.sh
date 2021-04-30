@@ -85,7 +85,7 @@ if [[ " ${CLI_ARGS[@]} " =~ " -h " ]]; then
     exit 0
 fi
 
-echo "GITHUB_REF: ${GITHUB_REF}"
+echo "GITHUB_REF: $GITHUB_REF"
 
 if [[ ! "$GITHUB_REF" =~ "refs/tags/*" ]]; then
     echo "Exiting, no tag set"
