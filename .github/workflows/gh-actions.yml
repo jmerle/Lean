@@ -19,7 +19,7 @@ jobs:
           wget -q https://cdn.quantconnect.com/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh
           bash Miniconda3-4.5.12-Linux-x86_64.sh -b
           rm -rf Miniconda3-4.5.12-Linux-x86_64.sh
-          ln -s $HOME/miniconda3/lib/libpython3.6m.so /usr/lib/libpython3.6m.so
+          sudo ln -s $HOME/miniconda3/lib/libpython3.6m.so /usr/lib/libpython3.6m.so
           conda update -y python conda pip
           conda install -y python=3.6.8
           conda install -y numpy=1.18.1
@@ -39,7 +39,7 @@ jobs:
           nuget install NUnit.Runners -Version 3.11.1 -OutputDirectory testrunner
 
       - name: Build
-        run: msbuild /p:Configuration=Release /p:VbcToolExe=vbnc.exe /v:quiet /p:WarningLevel=1 QuantConnect.Lean.sln
+        run: msbuild /p:Configuration=Debug /p:VbcToolExe=vbnc.exe /v:quiet /p:WarningLevel=1 QuantConnect.Lean.sln
         env:
           PYTHONNET_PYDLL: ${{ env.PYTHONNET_PYDLL }}
 
