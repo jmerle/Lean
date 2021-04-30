@@ -3,10 +3,10 @@
 CLI_ARGS=("$@")
 
 GENERATOR_REPO="https://github.com/QuantConnect/quantconnect-stubs-generator"
-GENERATOR_BRANCH="master"
+GENERATOR_BRANCH="dotnet-5"
 
 RUNTIME_REPO="https://github.com/dotnet/runtime"
-RUNTIME_BRANCH="master"
+RUNTIME_BRANCH="main"
 
 LEAN_DIR="$(pwd)"
 # LEAN_BIN_DIR="$LEAN_DIR/Launcher/bin/Release"
