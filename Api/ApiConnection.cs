@@ -46,7 +46,7 @@ namespace QuantConnect.Api
         {
             _token = token;
             _userId = userId.ToStringInvariant();
-            Client = new RestClient("http://localhost:8080/");
+            Client = new RestClient("http://localhost:5612/");
         }
 
         /// <summary>
