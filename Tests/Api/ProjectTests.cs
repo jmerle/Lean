@@ -26,7 +26,7 @@ namespace QuantConnect.Tests.API
     /// <summary>
     /// API Project endpoints, includes some Backtest endpoints testing as well 
     /// </summary>
-    [TestFixture, Explicit("Requires configured api access and available backtest node to run on")]
+    [TestFixture]
     public class ProjectTests : ApiTestBase
     {
         /// <summary>

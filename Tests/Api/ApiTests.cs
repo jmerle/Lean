@@ -23,7 +23,7 @@ namespace QuantConnect.Tests.API
     /// API Object tests
     /// Tests APIs ability to connect to Web API
     /// </summary>
-    [TestFixture, Explicit("Requires configured api access")]
+    [TestFixture]
     public class ApiTest : ApiTestBase
     {
         /// <summary>

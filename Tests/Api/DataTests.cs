@@ -25,7 +25,7 @@ namespace QuantConnect.Tests.API
     /// <summary>
     /// API Data endpoint tests
     /// </summary>
-    [TestFixture, Explicit("Requires configured api access, and also makes calls to data endpoints which are charging transactions")]
+    [TestFixture]
     public class DataTests : ApiTestBase
     {
         private DataPricesList _pricesCache;
